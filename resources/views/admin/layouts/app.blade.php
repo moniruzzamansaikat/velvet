@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pnotify.all.min.css') }}">
-    <title>{{ isset($title) ? $title : '' }}</title>
+    <title>{{ isset($pageTitle) ? $pageTitle : '' }}</title>
 
     @stack('styles')
 </head>
