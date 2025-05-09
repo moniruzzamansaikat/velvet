@@ -1,76 +1,115 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="card">
+    <div class="mb-3 d-flex justify-content-between">
+        <h3>@lang('User List')</h3>
 
+        <div class="d-flex align-items-center gap-2">
+            <x-admin-search />
+            <x-button href="{{ route('admin.user.new') }}">
+                <x-icons.add />
+                @lang('Add New')
+            </x-button>
+        </div>
+    </div>
+
+
+    <div class="card table-card">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="font-bold text-lg">@Lang('User List')</h2>
-
-                <x-admin-search />
-            </div>
-
             <!-- start a table -->
-            <table class="table-fixed w-full">
+            <div class="table-responsive">
+                <x-table>
+                    <thead class="text-left">
+                        <tr>
+                            <th>@lang('User')</th>
+                            <th>@lang('Email/Phone')</th>
+                            <th>@lang('Balance')</th>
+                            <th>@lang('Status')</th>
+                            <th>@lang('Joined At')</th>
+                            <th class="text-end">@lang('Action')</th>
+                        </tr>
+                    </thead>
+                    <!-- end table head -->
 
-                <!-- table head -->
-                <thead class="text-left">
-                    <tr>
-                        <th class="w-1/2 pb-10 text-sm font-extrabold tracking-wide">@lang('User')</th>
-                        <th class="w-1/2 pb-10 text-sm font-extrabold tracking-wide">@lang('Email/Phone')</th>
-                        <th class="w-1/2 pb-10 text-sm font-extrabold tracking-wide">@lang('Balance')</th>
-                        <th class="w-1/2 pb-10 text-sm font-extrabold tracking-wide">@lang('Status')</th>
-                        <th class="w-1/2 pb-10 text-sm font-extrabold tracking-wide">@lang('Joined At')</th>
-                        <th class="w-1/4 pb-10 text-sm font-extrabold tracking-wide text-right">@lang('Action')</th>
-                    </tr>
-                </thead>
-                <!-- end table head -->
+                    <tbody class="text-left text-gray-600">
 
-                <!-- table body -->
-                <tbody class="text-left text-gray-600">
+                        @foreach ($users as $user)
+                            <tr>
+                                <x-table.body.cell>
+                                    <div class="table-image-cell">
+                                        <img src="{{ asset('assets/admin/images/user2.jpg') }}" class="img-fluid" />
+                                        <div>
+                                            <p class="m-0">{{ $user->name }}</p>
+                                            <small>{{ '@' . $user->username }}</small>
+                                        </div>
+                                    </div>
+                                </x-table.body.cell>
 
-                    <!-- item -->
-                    <tr>
-                        <!-- name -->
-                        <td class="w-1/2 text-xs font-extrabold tracking-wider flex flex-row items-center w-full">
-                            <div class="w-8 h-8 overflow-hidden rounded-full">
-                                <img src="{{ asset('assets/admin/images/user2.jpg') }}" class="object-cover">
-                            </div>
-                            <p class="ml-3 name-1">Franciszek</p>
-                        </td>
-                        <!-- name -->
+                                <x-table.body.cell>
+                                    {{ $user->email }}
+                                    / {{ $user->phone ?? 'N/A' }}
+                                </x-table.body.cell>
 
-                        <td>ok</td>
+                                <x-table.body.cell>
+                                    {{ $user->balance }}
+                                </x-table.body.cell>
 
-                        <!-- product -->
-                        <td>Nike Sport</th>
-                        <!-- product -->
+                                <x-table.body.cell>
+                                    @php
+                                        echo $user->statusBadge;
+                                    @endphp
+                                </x-table.body.cell>
 
-                        <!-- invoice -->
-                        <td>#<span
-                                class="num-4">5203</span></td>
-                        <!-- invoice -->
-
-                        <!-- price -->
-                        <td>$<span
-                                class="num-2">32</span></td>
-                        <!-- price -->
-
-
-                        <td class="text-end">
-                            <a href="" class="btn btn-sm">@lang('Edit')</a>
-                        </td>
-
-                    </tr>
-                    <!-- item --> 
+                                <x-table.body.cell>
+                                    {{ $user->created_at }}
+                                </x-table.body.cell>
 
 
-                </tbody>
-                <!-- end table body -->
+                                <x-table.body.cell class="text-end">
+                                    <x-button href="{{ route('admin.user.edit', $user->id) }}" class="btn-sm">
+                                        <x-icons.edit />
+                                        @lang('Edit')</a>
+                                    </x-button>
 
-            </table>
+                                    <x-button href="{{ route('admin.user.edit', $user->id) }}" class="btn-danger btn-sm">
+                                        <x-icons.delete-v2 />
+                                        @lang('Delete')</a>
+                                    </x-button>
+                                </x-table.body.cell>
+                            </tr>
+                        @endforeach
+
+
+                    </tbody>
+
+                </x-table>
+            </div>
             <!-- end a table -->
         </div>
 
     </div>
 @endsection
+
+
+@push('styles')
+    <style>
+        .table-card {
+            border: none;
+            border-radius: 4px;
+        }
+        
+        .table-image-cell {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+            --square: 40px;
+        }
+
+        .table-image-cell img {
+            width: var(--square);
+            height: var(--square);
+            border-radius: 50%;
+        }
+    </style>
+@endpush

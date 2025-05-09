@@ -1,24 +1,22 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\User\PaymentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['admin'])->group(function () {
-    Route::view('/admin', 'admin.layouts.app');
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::view('/admin/users', 'admin.users.list')->name('admin.user.list');
-    Route::view('/admin/setting/profile', 'admin.setting.profile')->name('admin.setting.profile');
-    Route::post('/admin/setting/profile', [AdminController::class, 'updateProfile'])->name('admin.setting.profile.update');
+Route::get('/', [SiteController::class, 'home'])->name('home');
+
+Route::controller(\App\Http\Controllers\User\LoginController::class)->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', 'login')->name('login');
+        Route::post('/login', 'loginStore')->name('login.store');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::post('/logout', 'logout')->name('logout');
+    });
 });
 
-Route::middleware(['admin.guest'])->group(function () {
-    Route::view('/admin/login', 'admin.auth.login')->name('admin.login');
-});
 
-Route::post('/admin/login', [LoginController::class, 'login']);
-Route::get('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/payment/success', [\App\Http\Controllers\User\PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::post('payment/notify/{key}', [PaymentController::class, 'notify'])->name('payment.notify');

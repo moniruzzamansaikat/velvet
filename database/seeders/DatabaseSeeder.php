@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\GeneralSetting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,9 +18,21 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
+            'username' => 'ok',
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $generalSetting = new GeneralSetting();
+        $generalSetting->site_title = 'Site Title';
+        $generalSetting->save();
+        
+        $user           = new User;
+        $user->username = 'username';
+        $user->password = \Hash::make('username');
+        $user->name     = 'User Name';
+        $user->email    = 'user@gmail.com';
+        $user->save();
 
         $admin           = new Admin();
         $admin->name     = 'Admin';

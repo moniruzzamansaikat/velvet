@@ -45,4 +45,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getStatusBadgeAttribute()
+    {
+        if ($this->status == 1) {
+            return '<span class="badge text-bg-success">' . __('Active') . '</span>';
+        }
+
+        if ($this->status == 0) {
+            return '<span class="badge text-bg-danger">' . __('Inactive') . '</span>';
+        }
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

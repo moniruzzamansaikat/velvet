@@ -21,8 +21,9 @@ class LoginController extends Controller
         $this->ensureIsNotRateLimited($request);
 
         $credentials = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
+            // 'g-recaptcha-response' => 'required|captcha',
+            'username'             => 'required|string',
+            'password'             => 'required|string',
         ]);
 
         if (

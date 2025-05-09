@@ -9,6 +9,8 @@
                     <h4>Admin Login</h4>
                 </div>
                 <div class="card-body">
+                    @include('admin.partials.alerts')
+                    
                     <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
 
@@ -22,12 +24,16 @@
                             <input type="password" name="password" class="form-control" id="password" required>
                         </div>
 
+                        {{-- {!! NoCaptcha::renderJs() !!}
+                        {!! NoCaptcha::display() !!} --}}
+
+                        
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" name="remember" id="remember">
                             <label class="form-check-label" for="remember">Remember Me</label>
                         </div>
 
-                        <button type="submit" class="btn w-100">Login</button>
+                        <button type="submit" class="btn  btn-primary w-100">@lang('Login')</button>
                     </form>
                 </div>
             </div>

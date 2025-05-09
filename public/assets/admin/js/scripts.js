@@ -73,38 +73,10 @@ var getRandomInt = function (min, max) {
   	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var generateName = function (num){	
-       
-    if (num === 1) {
-        var name = first[getRandomInt(0, first.length + 1)];        
-    }else{
-        var name = first[getRandomInt(0, first.length + 1)] + ' ' + last[getRandomInt(0, first.length + 1)];        
-    }
-    
-        
-	return name;
-}
-
-
 
 var names = document.getElementsByClassName('name-1');
 var names_2 = document.getElementsByClassName('name-2');
 
-if (names.length > 0) {
-
-    for (let i = 0; i < names.length; i++) {
-        const e = names[i];
-        e.innerText = generateName(1);
-    }
-}
-
-if (names_2.length > 0) {
-
-    for (let i = 0; i < names_2.length; i++) {
-        const e = names_2[i];
-        e.innerText = generateName(2);
-    }
-}
 var navbarToggle = document.getElementById('navbarToggle'),
     navbar       = document.getElementById('navbar');
 
@@ -305,18 +277,6 @@ var options = function(type, height, numbers , color){
     
   };
 }
-  
-
-  var analytics_1 =  document.getElementsByClassName("analytics_1");
-    
-  if (analytics_1 != null && typeof(analytics_1) != 'undefined') {
-      var chart = new ApexCharts(analytics_1[0], options("area" , '51px' , numArr(10,99) , '#4fd1c5')); 
-      var chart_1 = new ApexCharts(analytics_1[1], options("area" , '51px' , numArr(10,99) , '#4c51bf')); 
-      chart.render();       
-      chart_1.render();       
-  }
-
-
 
   
    
@@ -404,80 +364,4 @@ var sealsOptions = {
   
   
 
-
-var sealsOverview = document.getElementById('sealsOverview');
-var sealsOverviewChart = new ApexCharts(sealsOverview, options('bar' , '100%', numArr(20,999) , '#30aba0')); 
-sealsOverviewChart.render();       
-var options = {     
-    chart: {
-    //   height: 280,
-      width: '100%',
-      type: "area",
-      toolbar: {
-        show: false,
-       },
-    },
-    grid: {
-        show: false,
-        padding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0    
-        }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-        show: false,
-    },
-    series: [
-    {
-        name: "serie1",
-        data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-    },
-    {
-        name: "serie2",
-        data: [54, 45, 51, 57, 32, 33, 31, 31, 46, 37, 33]
-    }
-    ],    
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.9,
-        opacityTo: 0.7,
-        stops: [0,90, 100]
-      },
-      colors: ['#4fd1c5'],
-    },
-    stroke:{
-        colors: ['#4fd1c5'],
-        width: 3
-    },    
-    yaxis: {
-        show: false,        
-    }, 
-    xaxis: {
-      categories: [1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10],
-      labels: {
-          show: false,
-      },   
-      axisBorder: {
-        show: false,        
-      },   
-      tooltip: {
-          enabled: false,
-      }
-    },
-    
-  };
-  
-
-  var SummaryChart =  document.getElementById("SummaryChart");
-  
-  if (SummaryChart != null && typeof(SummaryChart) != 'undefined') {
-    var chart = new ApexCharts(document.querySelector("#SummaryChart"), options); 
-    chart.render();
-  }
+ 

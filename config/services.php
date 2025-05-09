@@ -35,4 +35,21 @@ return [
         ],
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
+
+    'twocheckout' => [
+        'merchant' => env('TWOCHECKOUT_MERCHANT_CODE'),
+        'secret' => env('TWOCHECKOUT_SECRET_KEY'),
+        'sandbox' => env('TWOCHECKOUT_SANDBOX', true),
+    ],
+
+    'iyzico' => [
+        'api_key'    => env('IYZICO_API_KEY'),
+        'secret_key' => env('IYZICO_SECRET_KEY'),
+        'base_url'   => env('IYZICO_BASE_URL'),
+    ]
+
 ];
